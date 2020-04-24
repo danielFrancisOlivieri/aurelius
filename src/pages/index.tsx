@@ -21,7 +21,7 @@ const IndexPage = (props: LayoutProps) =>
       <Container text>
         <Header inverted as="h1">Marcus Aurelius</Header>
         <Header inverted as="h2">The Meditations</Header>
-        <Button primary size="huge">"Quotation"</Button>
+        <Button primary size="huge">"Ever dig and it will ever give"</Button>
       </Container>
     </Segment>
 
