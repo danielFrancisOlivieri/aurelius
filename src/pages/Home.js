@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { Segment, Container, Header } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css'
+import { Container } from 'semantic-ui-react';
+import { TextInputModal } from '../components/Modal/TextInputModal';
+import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
 
@@ -31,12 +32,30 @@ It is the phenomenon sometimes called alienation from self. In its advanced stag
 
 `
 
+let poem = `
+FROM fairest creatures we desire increase,
+That thereby beauty's rose might never die,
+But as the riper should by time decease,
+His tender heir might bear his memory:
+But thou, contracted to thine own bright eyes,
+Feed'st thy light'st flame with self-substantial fuel,
+Making a famine where abundance lies,
+Thyself thy foe, to thy sweet self too cruel.
+Thou that art now the world's fresh ornament
+And only herald to the gaudy spring,
+Within thine own bud buriest thy content
+And, tender churl, makest waste in niggarding.
+Pity the world, or else this glutton be,
+To eat the world's due, by the grave and thee.
+
+`
+
+
 
 let title = 'Title';
 let textIndexNumber = 2; // holds your place, manipulating it changes how much is presented
 let fullText = newText;
 let fullTextArray = fullText.split(' ');
-let textPresented = returnTextToPresent(fullTextArray, textIndexNumber);
 let didion = `Once, in a dry season, I wrote in large letters across two pages of a notebook that innocence ends when one is stripped of the delusion that one likes oneself. Although now, some years later, I marvel that a mind on the outs with itself should have nonetheless made painstaking record of its every tremor, I recall with embarrassing clarity the flavor of those particular ashes. It was a matter of misplaced self-respect.`;
 
 function returnTextToPresent(fullTextArray, textIndexNumber) {
@@ -61,14 +80,17 @@ export class Home extends React.Component {
             textPresented: returnTextToPresent(fullTextArray, textIndexNumber)
         }
        // this.onKeyDown = this.onKeyDown.bind(this); 
-        this.handleClick = this.handleClick.bind(this);
+        this.handleTouchStart = this.handleTouchStart.bind(this);
     }
-    handleClick() {
-        console.log('Click happened');
-      }
 
       componentDidMount() {
         document.addEventListener('keydown', this.addWord);
+      }
+
+      handleTouchStart() {
+          console.log('hello touch');
+        this.setState({textIndexNumber: this.state.textIndexNumber + 1});
+        this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
       }
 
       setText = () => {
@@ -80,7 +102,6 @@ export class Home extends React.Component {
           }
     }
 
-  
 
       addWord = (e) => {
 
@@ -126,16 +147,20 @@ export class Home extends React.Component {
         return (
             <div>
 
-                <header className="App-header">
+                <header className="App-header" onTouchStart={this.handleTouchStart}  >
 
+            
                     <h1 className='title' onClick={this.setText} > {title} </h1>
 
                     <Container className='container' >
 
+                    {/* <TextInputModal></TextInputModal> */}
+
+
                         {this.state.textPresented}
 
-                    </Container>
-
+              
+</Container>
 
 
                 </header>

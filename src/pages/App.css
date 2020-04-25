@@ -36,7 +36,7 @@
   margin-top: 100px;
   font-family: Georgia, 'Times New Roman', Times, serif;
   line-height: normal;
-  font-size: 2em;;
+  font-size: 3em;;
 }
 
 .home {
@@ -47,12 +47,21 @@ h1 {
   cursor: pointer;
 }
 
+pre {
+    width: 90%;
+    background-color: #282c34;
+}
+
 .title {
   color: white;
   align-self: center;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 4em;
 }
+
+.inputModal {
+  background-color: red;
+} 
 
 @keyframes App-logo-spin {
   from {

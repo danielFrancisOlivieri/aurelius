@@ -1,0 +1,29 @@
+.inputModal {
+    position: absolute;
+    margin-right: 500px;
+    margin-top: '0px !important';
+    margin-left: '40px !important';
+    margin-right: 'auto';
+    background-color: red;
+}
+
+.visible.transition {
+    margin-top: auto !important;
+    display: inline-block !important;
+    position: relative;
+    top: 20%;
+    left: 20%;
+  }
+
+.ui.page.modals.transition.visible {
+    display: flex !important;
+}
+
+.header {
+    color: blue;
+}
+
+
+.hack {
+    background-color: white;
+}
