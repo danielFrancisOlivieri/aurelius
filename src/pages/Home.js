@@ -91,6 +91,7 @@ export class Home extends React.Component {
           console.log('hello touch');
         this.setState({textIndexNumber: this.state.textIndexNumber + 1});
         this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+        window.scrollBy(0, 5);
       }
 
       setText = () => {
