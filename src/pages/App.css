@@ -3,6 +3,18 @@
   background-color: #282c34;
 }
 
+.stat {
+  color: white;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  line-height: normal;
+  
+}
+
+.fullStatistic {
+  visibility: hidden;
+}
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -21,7 +33,8 @@
   flex-direction: column;
   font-size: calc(10px + 2vmin);
   color: white;
-  height: 3000vh;
+  overflow: auto;
+  height: 5000vh;  
 }
 
 .App-link {
@@ -33,7 +46,8 @@
 }
 
 .container {
-  margin-top: 100px;
+  margin-top: 80px;
+  margin-bottom: 120px;
   font-family: Georgia, 'Times New Roman', Times, serif;
   line-height: normal;
   font-size: 3em;;

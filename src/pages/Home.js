@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Container } from 'semantic-ui-react';
+import { Container, Statistic } from 'semantic-ui-react';
 import { TextInputModal } from '../components/Modal/TextInputModal';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
@@ -94,17 +94,38 @@ export class Home extends React.Component {
         window.scrollBy(0, 5);
       }
 
+
       setText = () => {
         let inputText = prompt('Enter your text', 'your text here...');
         if (inputText == null || inputText === "") {
             this.setState({fullTextArray: didion.split(' ')});
           } else {
+            this.setState({fullText: inputText });
             this.setState({fullTextArray: inputText.split(' ') });
+
+               // calculate how long the page should be 
+    // circa 30 characters per line 
+//    let characterCount = inputText.length;
+//    console.log(inputText);
+//    let lines = characterCount / 34;
+//    let pageHeightInteger = lines * 109; // in pixels
+
+//    let pageHeightString = pageHeightInteger + 'px';
+
+// let x = document.getElementsByClassName("App-header");
+
+//                console.log(x[0].style);
+            
+//                x[0].style.height += '500px';
+
           }
     }
 
+  
+
 
       addWord = (e) => {
+
 
         window.onkeydown = function(e) { 
             
@@ -113,9 +134,34 @@ export class Home extends React.Component {
             }
             return !(e.keyCode === 32);
         };
+
+        if (e.keyCode === 219) {
+            let x = document.getElementsByClassName("fullStatistic");
+            console.log(x[0].style);
+            if (x[0].style.visibility === 'visible') {
+                x[0].style.visibility = 'hidden';
+            } 
+            else {
+                x[0].style.visibility = 'visible';
+            }
+
+            
+        }
+
+       
         
         if(e.keyCode === 16) {
             window.scrollBy(0, 150);
+        }
+
+        if (e.keyCode === 221) {
+            if ( this.state.textPresented === this.state.fullText) {
+                this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+            }
+            else {
+                this.setState({textPresented: this.state.fullText});
+            }
+            
         }
 
         if(e.keyCode === 37 ) {
@@ -136,6 +182,7 @@ export class Home extends React.Component {
                 this.setState({textIndexNumber: this.state.textIndexNumber + 1});
                 this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
                window.scrollBy(0, 5);
+            
               }
         }
 
@@ -163,6 +210,10 @@ export class Home extends React.Component {
               
 </Container>
 
+<Statistic className='fullStatistic' >
+    <Statistic.Value> <span className='stat'> {this.state.textIndexNumber}</span> <span className='stat'>/</span> <span className='stat'> {this.state.fullTextArray.length} </span>  </Statistic.Value>
+    <Statistic.Label> <span className='stat'> Words </span></Statistic.Label>
+  </Statistic>
 
                 </header>
 
