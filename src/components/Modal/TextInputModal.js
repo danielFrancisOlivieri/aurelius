@@ -3,7 +3,7 @@ import { Button, Header, Image, Modal } from 'semantic-ui-react'
 import { Input, Form, TextArea } from 'semantic-ui-react'
 import './modal.css'
 
-export const TextInputModal = () => (
+export const TextInputModal = (props) => (
     <Modal className='inputModal' trigger={<Button>Show Modal</Button>}>
     <Modal.Header className='header' >  Input Your Text  </Modal.Header>
     <Modal.Content >
@@ -23,7 +23,7 @@ export const TextInputModal = () => (
 
           
 </pre>
-      <Button> Done </Button>
+      <Button  > Done </Button>
 
       </Modal.Description>
     </Modal.Content>

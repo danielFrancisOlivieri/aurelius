@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { Container, Statistic } from 'semantic-ui-react';
+import { Container, Statistic, Button } from 'semantic-ui-react';
 import { TextInputModal } from '../components/Modal/TextInputModal';
 import 'semantic-ui-css/semantic.min.css';
-import './App.css';
+import './legible.css';
 
 
 let newText = `
@@ -77,10 +77,12 @@ export class Home extends React.Component {
             fullText: newText,
             textIndexNumber: 2,
             fullTextArray: fullText.split(' '),
-            textPresented: returnTextToPresent(fullTextArray, textIndexNumber)
+            textPresented: returnTextToPresent(fullTextArray, textIndexNumber),
+            modalActivated: false
         }
        // this.onKeyDown = this.onKeyDown.bind(this); 
         this.handleTouchStart = this.handleTouchStart.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
     }
 
       componentDidMount() {
@@ -94,6 +96,11 @@ export class Home extends React.Component {
         window.scrollBy(0, 5);
       }
 
+      toggleModal() {
+        this.setState({modalActivated: true});
+        console.log('toggle modal');
+      }
+
 
       setText = () => {
         let inputText = prompt('Enter your text', 'your text here...');
@@ -103,20 +110,6 @@ export class Home extends React.Component {
             this.setState({fullText: inputText });
             this.setState({fullTextArray: inputText.split(' ') });
 
-               // calculate how long the page should be 
-    // circa 30 characters per line 
-//    let characterCount = inputText.length;
-//    console.log(inputText);
-//    let lines = characterCount / 34;
-//    let pageHeightInteger = lines * 109; // in pixels
-
-//    let pageHeightString = pageHeightInteger + 'px';
-
-// let x = document.getElementsByClassName("App-header");
-
-//                console.log(x[0].style);
-            
-//                x[0].style.height += '500px';
 
           }
     }
@@ -126,67 +119,70 @@ export class Home extends React.Component {
 
       addWord = (e) => {
 
+        if (!this.state.modalActivated) {
 
-        window.onkeydown = function(e) { 
+            window.onkeydown = function(e) { 
             
-            if(e.keyCode === 32) {
-                window.scrollBy(0, 75);    
+                if(e.keyCode === 32) {
+                    window.scrollBy(0, 75);    
+                }
+                return !(e.keyCode === 32);
+            };
+    
+            if (e.keyCode === 219) {
+                let x = document.getElementsByClassName("fullStatistic");
+                console.log(x[0].style);
+                if (x[0].style.visibility === 'visible') {
+                    x[0].style.visibility = 'hidden';
+                } 
+                else {
+                    x[0].style.visibility = 'visible';
+                }
+    
+                
             }
-            return !(e.keyCode === 32);
-        };
-
-        if (e.keyCode === 219) {
-            let x = document.getElementsByClassName("fullStatistic");
-            console.log(x[0].style);
-            if (x[0].style.visibility === 'visible') {
-                x[0].style.visibility = 'hidden';
-            } 
-            else {
-                x[0].style.visibility = 'visible';
-            }
-
+    
+           
             
+            if(e.keyCode === 16) {
+                window.scrollBy(0, 150);
+            }
+    
+            if (e.keyCode === 221) {
+                if ( this.state.textPresented === this.state.fullText) {
+                    this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                }
+                else {
+                    this.setState({textPresented: this.state.fullText});
+                }
+                
+            }
+    
+            if(e.keyCode === 37 ) {
+                console.log(e);
+                if ( this.state.textIndexNumber > 0 ) {
+                    this.setState({textIndexNumber: this.state.textIndexNumber - 1});
+                    this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                    window.scrollBy(0, -2);
+                }           
+            } else if (e.keyCode === 8) {
+                let newArray = this.state.fullTextArray.slice(this.state.textIndexNumber, this.state.fullTextArray.length);
+                this.setState({fullTextArray: newArray});
+                this.setState({textPresented: '' });
+                this.setState({textIndexNumber: 2 });
+                window.scrollTo(0,0);
+            } else if ((e.keyCode > 47 && e.keyCode < 91) || e.keyCode === 39 || e.keyCode === 222 || (e.keyCode > 185 && e.keyCode < 192) ){
+                if (this.state.fullTextArray.length > this.state.textIndexNumber) {
+                    this.setState({textIndexNumber: this.state.textIndexNumber + 1});
+                    this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                   window.scrollBy(0, 5);
+                
+                  }
+            }
+
+
         }
 
-       
-        
-        if(e.keyCode === 16) {
-            window.scrollBy(0, 150);
-        }
-
-        if (e.keyCode === 221) {
-            if ( this.state.textPresented === this.state.fullText) {
-                this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
-            }
-            else {
-                this.setState({textPresented: this.state.fullText});
-            }
-            
-        }
-
-        if(e.keyCode === 37 ) {
-            console.log(e);
-            if ( this.state.textIndexNumber > 0 ) {
-                this.setState({textIndexNumber: this.state.textIndexNumber - 1});
-                this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
-                window.scrollBy(0, -2);
-            }           
-        } else if (e.keyCode === 8) {
-            let newArray = this.state.fullTextArray.slice(this.state.textIndexNumber, this.state.fullTextArray.length);
-            this.setState({fullTextArray: newArray});
-            this.setState({textPresented: '' });
-            this.setState({textIndexNumber: 2 });
-            window.scrollTo(0,0);
-        } else if ((e.keyCode > 47 && e.keyCode < 91) || e.keyCode === 39 || e.keyCode === 222 || (e.keyCode > 185 && e.keyCode < 192) ){
-            if (this.state.fullTextArray.length > this.state.textIndexNumber) {
-                this.setState({textIndexNumber: this.state.textIndexNumber + 1});
-                this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
-               window.scrollBy(0, 5);
-            
-              }
-        }
-
-          
             
       }
 
@@ -202,8 +198,8 @@ export class Home extends React.Component {
 
                     <Container className='container' >
 
-                    {/* <TextInputModal></TextInputModal> */}
-
+                    <TextInputModal toggleModal={this.toggleModal} ></TextInputModal> 
+                   
 
                         {this.state.textPresented}
 
