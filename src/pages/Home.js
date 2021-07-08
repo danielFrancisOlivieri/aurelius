@@ -1,62 +1,30 @@
 
 import React from 'react';
-import { Container, Statistic, Button } from 'semantic-ui-react';
-import { TextInputModal } from '../components/Modal/TextInputModal';
+import { Container, Statistic } from 'semantic-ui-react';
+import { Controller, Scene } from 'react-scrollmagic';
 import 'semantic-ui-css/semantic.min.css';
 import './legible.css';
 
 
 let newText = `
-Although to be driven back upon oneself is an uneasy affair at best, rather like trying to cross a border with borrowed credentials, it seems to me now the one condition necessary to the beginnings of real self-respect. Most of our platitudes notwithstanding, self-deception remains the most difficult deception. The charms that work on others count for nothing in that devastatingly well-lit back alley where one keeps assignations with oneself: no winning smiles will do here, no prettily drawn lists of good intentions. With the desperate agility of a crooked faro dealer who spots Bat Masterson about to cut himself into the game, one shuffles flashily but in vain through one's marked cards—the kindness done for the wrong reason, the apparent triumph which had involved no real effort, the seemingly heroic act into which one had been shamed. The dismal fact is that self-respect has nothing to do with the approval of others—who are, after all, deceived easily enough; has nothing to do with reputation—which, as Rhett Butler told Scarlett O'Hara, is something that people with courage can do without.
-
-To do without self-respect, on the other hand, is to be an unwilling audience of one to an interminable home movie that documents one's failings, both real and imagined, with fresh footage spliced in for each screening. There’s the glass you broke in anger, there's the hurt on X's face; watch now, this next scene, the night Y came back from Houston, see how you muff this one. To live without self-respect is to lie awake some night, beyond the reach of warm milk, phenobarbital, and the sleeping hand on the coverlet, counting up the sins of commission and omission, the trusts betrayed, the promises subtly broken, the gifts irrevocably wasted through sloth or cowardice or carelessness. However long we post- pone it, we eventually lie down alone in that notoriously un- comfortable bed, the one we make ourselves. Whether or not we sleep in it depends, of course, on whether or not we respect ourselves.
-
-To protest that some fairly improbable people, some people who could not possibly respect themselves, seem to sleep easily enough is to miss the point entirely, as surely as those people miss it who think that self-respect has necessarily to do with not having safety pins in one's underwear. There is a common superstition that "self-respect" is a kind of charm against snakes, something that keeps those who have it locked in some unblighted Eden, out of strange beds, ambivalent conversations, and trouble in general. It does not at all. It has nothing to do with the face of things, but concerns instead a separate peace, a private reconciliation. Although the careless, suicidal Julian English in Appointment in Samarra and the careless, incurably dishonest Jordan Baker in The Great Gatsby seem equally improbable candidates for self-respect, Jordan Baker had it, Julian English did not. With that genius for accommodation more often seen in women than in men, Jordan took her own measure, made her own peace, avoided threats to that peace: "I hate careless people," she told Nick Carraway. "It takes two to make an accident."
-
-Like Jordan Baker, people with self-respect have the courage of their mistakes. They know the price of things. If they choose to commit adultery, they do not then go running, in an access of bad conscience, to receive absolution from the wronged parties; nor do they complain unduly of the unfairness, the undeserved embarrassment, of being named corespondent. If they choose to forego their work—say it is screenwriting—in favor of sitting around the Algonquin bar, they do not then wonder bitterly why the Hacketts, and not they, did Anne Frank.
-
-In brief, people with self-respect exhibit a certain toughness, a kind of moral nerve; they display what was once called character, a quality which, although approved in the abstract, sometimes loses ground to other, more instantly negotiable virtues. The measure of its slipping prestige is that one tends to think of it only in connection with homely children and with United States senators who have been defeated, preferably in the primary, for re-election. Nonetheless, character—the willingness to accept responsibility for one's own life—is the source from which self-respect springs.
-
-Self-respect is something that our grandparents, whether or not they had it, knew all about. They had instilled in them, young, a certain discipline, the sense that one lives by doing things one does not particularly want to do, by putting fears and doubts to one side, by weighing immediate comforts against the possibility of larger, even intangible, comforts. It seemed to the nineteenth century admirable, but not remarkable, that Chinese Gordon put on a clean white suit and held Khartoum against the Mahdi; it did not seem unjust that the way to free land in California involved death and difficulty and dirt. In a diary kept during the winter of 1846, an emigrating twelve-year-old named Narcissa Cornwall noted coolly: "Father was busy reading and did not notice that the house was being filled with strange Indians until Mother spoke about it." Even lacking any clue as to what Mother said, one can scarcely fail to be impressed by the entire incident: the father reading, the Indians filing in, the mother choosing the words that would not alarm, the child duly recording the event and noting further that those particular Indians were not, "fortunately for us," hostile. Indians were simply part of the donnée.
-
-In one guise or another, Indians always are. Again, it is a question of recognizing that anything worth having has its price. People who respect themselves are willing to accept the risk that the Indians will be hostile, that the venture will go bankrupt, that the liaison may not turn out to be one in which every day is a holiday because you’re married to me. They are willing to invest something of themselves; they may not play at all, but when they do play, they know the odds.
-
-That kind of self-respect is a discipline, a habit of mind that can never be faked but can be developed, trained, coaxed forth. It was once suggested to me that, as an antidote to crying, I put my head in a paper bag. As it happens, there is a sound physiological reason, something to do with oxygen, for doing exactly that, but the psychological effect alone is incalculable: it is difficult in the extreme to continue fancying oneself Cathy in Wuthering Heights with one's head in a Food Fair bag. There is a similar case for all the small disciplines, unimportant in themselves; imagine maintaining any kind of swoon, commiserative or carnal, in a cold shower.
-
-But those small disciplines are valuable only insofar as they represent larger ones. To say that Waterloo was won on the playing fields of Eton is not to say that Napoleon might have been saved by a crash program in cricket; to give formal dinners in the rain forest would be pointless did not the candlelight flickering on the liana call forth deeper, stronger disciplines, values instilled long before. It is a kind of ritual, helping us to remember who and what we are. In order to remember it, one must have known it.
-
-To have that sense of one's intrinsic worth which, for better or for worse, constitutes self-respect, is potentially to have everything: the ability to discriminate, to love and to remain indifferent. To lack it is to be locked within oneself, paradoxically incapable of either love or indifference. If we do not respect ourselves, we are on the one hand forced to despise those who have so few resources as to consort with us, so little perception as to remain blind to our fatal weak- nesses. On the other, we are peculiarly in thrall to everyone we see, curiously determined to live out—since our self-image is untenable—their false notions of us. We flatter ourselves by thinking this compulsion to please others an attractive trait: a gift for imaginative empathy, evidence of our willingness to give. Of course we will play Francesca to Paolo, Brett Ashley to Jake, Helen Keller to anyone's Annie Sullivan: no expectation is too misplaced, no role too ludicrous. At the mercy of those we can not but hold in contempt, we play rôles doomed to failure before they are begun, each defeat generating fresh despair at the necessity of divining and meeting the next demand made upon us.
-
-It is the phenomenon sometimes called alienation from self. In its advanced stages, we no longer answer the telephone, because someone might want something; that we could say no without drowning in self-reproach is an idea alien to this game. Every encounter demands too much, tears the nerves, drains the will, and the spectre of something as small as an unanswered letter arouses such disproportionate guilt that one's sanity becomes an object of speculation among one's acquaintances. To assign unanswered letters their proper weight, to free us from the expectations of others, to give us back to ourselves—there lies the great, the singular power of self-respect. Without it, one eventually discovers the final turn of the screw: one runs away to find oneself, and finds no one at home.
-
+Can you remember your first tunnel? Any tunnel will do. Crawlspaces, unexpected corridors, subways, cellars, bulkheads, catacombs.
+Mine is from the day we tried to clean up Narbrook park. It helped that Narbrook park was pretty clean to begin with. 
+Ever since, whenever I hear "Light at the end of the tunnel," that is the light I see, that is the tunnel I remember. 
+Emily Red behind me urging me to go faster. My legs spread out on either side to avoid the trail of water running through the middle. 
+Tunnel systems fan out under the Earth in harrowing displays. That you might just be at the surface of your life. 
+Depths. The metaphors that bind the world together. A way to talk about what you can't see. What does it mean to have depth? 
+Can you remember a second tunnel? A tunnel of your adolescents? 
+Now I'm asking you for a different type of tunnel. Not a tunnel but what feels like a tunnel. 
+Anything that has you trapped and pushing through. No way out but forward.  
+If you find a woman who's caught in a cave, you use a father's authoritative tone. 
+If you fnd a man (who tend to get stuck a bit more often, being bulkier and more foolhardy) you use a coaxing, motherly tone.
 
 `
 
-let poem = `
-FROM fairest creatures we desire increase,
-That thereby beauty's rose might never die,
-But as the riper should by time decease,
-His tender heir might bear his memory:
-But thou, contracted to thine own bright eyes,
-Feed'st thy light'st flame with self-substantial fuel,
-Making a famine where abundance lies,
-Thyself thy foe, to thy sweet self too cruel.
-Thou that art now the world's fresh ornament
-And only herald to the gaudy spring,
-Within thine own bud buriest thy content
-And, tender churl, makest waste in niggarding.
-Pity the world, or else this glutton be,
-To eat the world's due, by the grave and thee.
-
-`
-
-
-
-let title = 'Title';
+let title = 'Tunnels';
 let textIndexNumber = 2; // holds your place, manipulating it changes how much is presented
 let fullText = newText;
 let fullTextArray = fullText.split(' ');
-let didion = `Once, in a dry season, I wrote in large letters across two pages of a notebook that innocence ends when one is stripped of the delusion that one likes oneself. Although now, some years later, I marvel that a mind on the outs with itself should have nonetheless made painstaking record of its every tremor, I recall with embarrassing clarity the flavor of those particular ashes. It was a matter of misplaced self-respect.`;
 
 function returnTextToPresent(fullTextArray, textIndexNumber) {
     let toReturn = '';
@@ -100,19 +68,6 @@ export class Home extends React.Component {
         this.setState({modalActivated: true});
         console.log('toggle modal');
       }
-
-
-      setText = () => {
-        let inputText = prompt('Enter your text', 'your text here...');
-        if (inputText == null || inputText === "") {
-            this.setState({fullTextArray: didion.split(' ')});
-          } else {
-            this.setState({fullText: inputText });
-            this.setState({fullTextArray: inputText.split(' ') });
-
-
-          }
-    }
 
   
 
@@ -189,20 +144,17 @@ export class Home extends React.Component {
 
     render() {
         return (
+            <Controller vertical={false}  >
+                    <Scene>
             <div>
 
                 <header className="App-header" onTouchStart={this.handleTouchStart}  >
 
-            
-                    <h1 className='title' onClick={this.setText} > {title} </h1>
-
-                    <Container className='container' >
-
-                    <TextInputModal toggleModal={this.toggleModal} ></TextInputModal> 
-                   
+                    <h1 className='title' > {title} </h1>
+                    
+                    <Container className='container' >                   
 
                         {this.state.textPresented}
-
               
 </Container>
 
@@ -214,7 +166,8 @@ export class Home extends React.Component {
                 </header>
 
             </div>
-
+            </Scene>
+</Controller>
 
         );
     }
