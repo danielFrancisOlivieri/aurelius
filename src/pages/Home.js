@@ -17,19 +17,19 @@ Can you remember a second tunnel? A tunnel of your adolescents?
 Now I'm asking you for a different type of tunnel. Not a tunnel but what feels like a tunnel. 
 Anything that has you trapped and pushing through. No way out but forward.  
 If you find a woman who's caught in a cave, you use a father's authoritative tone. 
-If you fnd a man (who tend to get stuck a bit more often, being bulkier and more foolhardy) you use a coaxing, motherly tone.
+If you find a man (who tend to get stuck a bit more often, being bulkier and more foolhardy) you use a coaxing, motherly tone.
 
 `
 
-let title = 'Tunnels';
 let textIndexNumber = 2; // holds your place, manipulating it changes how much is presented
 let fullText = newText;
 let fullTextArray = fullText.split(' ');
-const GoBackwardsStage = {
+const EventStage = {
     HASNOTBEGUN: 1,
     BEGUN: 2,
     FINISHED: 3
 }
+
 
 function returnTextToPresent(fullTextArray, textIndexNumber) {
     let toReturn = '';
@@ -46,37 +46,81 @@ export class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: 'Title',
+            title: 'Tunnels',
             fullText: newText,
             textIndexNumber: 2,
             fullTextArray: fullText.split(' '),
             textPresented: returnTextToPresent(fullTextArray, textIndexNumber),
+            secondTextPresented: 'Terwilliger',
             modalActivated: false,
-            firstBackwardsStatus: GoBackwardsStage.HASNOTBEGUN
+            firstBackwardsStatus: EventStage.HASNOTBEGUN,
+            fontSize: 62,
+            decreaseStatus: EventStage.HASNOTBEGUN,
+            rotate: 0
         }
 
-        this.toggleModal = this.toggleModal.bind(this);
     }
 
       componentDidMount() {
         document.addEventListener('keydown', this.handleKeyDown);
+        document.addEventListener('touchstart', this.handleTouchDown);
+        
       }
 
 
-      toggleModal() {
-        this.setState({modalActivated: true});
-        console.log('toggle modal');
-      }
+    decreaseSize = () => {
+
+        if(this.state.decreaseStatus === EventStage.HASNOTBEGUN && this.state.textIndexNumber > 80) {
+            this.setState({decreaseStatus: EventStage.BEGUN});
+        } else if (this.state.decreaseStatus === EventStage.BEGUN && this.state.textIndexNumber < 120) {
+            this.setState({fontSize: this.state.fontSize - 1 })
+        } else if (this.state.decreaseStatus === EventStage.BEGUN && this.state.textIndexNumber > 120) {
+            this.setState({decreaseStatus: EventStage.FINISHED});
+            this.setState({fontSize: 62 })
+        }
+
+    } 
+
+    rotateText = () => {
+
+        if(this.state.decreaseStatus === EventStage.HASNOTBEGUN && this.state.textIndexNumber > 80) {
+            this.setState({decreaseStatus: EventStage.BEGUN});
+        } else if (this.state.decreaseStatus === EventStage.BEGUN && this.state.textIndexNumber < 150) {
+            this.setState({rotate: this.state.rotate + 4 })
+        } else if (this.state.decreaseStatus === EventStage.BEGUN && this.state.textIndexNumber > 150) {
+            this.setState({decreaseStatus: EventStage.FINISHED});
+            this.setState({rotate: 0 })
+        }
+
+    } 
+
+    handleTouchDown = (e) => {
+        console.log(e.type);
+
+      this.rotateText();
+
+        if((this.state.firstBackwardsStatus === EventStage.HASNOTBEGUN) && (this.state.textIndexNumber > 25)) {
+          this.subtractWord(e);
+          this.setState({firstBackwardsStatus: EventStage.BEGUN});
+        }  else if ((this.state.firstBackwardsStatus === EventStage.BEGUN) && (this.state.textIndexNumber < 7)) {
+          this.setState({firstBackwardsStatus: EventStage.FINISHED});
+        } else if (this.state.firstBackwardsStatus === EventStage.BEGUN) {
+          this.subtractWord(e);
+        } else {
+            this.addWord(e);
+        }
+    }
 
       handleKeyDown = (e) => {
-          console.log(this.state.textIndexNumber);
-          console.log(this.state.firstBackwardsStatus);
-          if((this.state.firstBackwardsStatus === GoBackwardsStage.HASNOTBEGUN) && (this.state.textIndexNumber > 25)) {
+        console.log(e);
+        this.rotateText();
+
+          if((this.state.firstBackwardsStatus === EventStage.HASNOTBEGUN) && (this.state.textIndexNumber > 25)) {
             this.subtractWord(e);
-            this.setState({firstBackwardsStatus: GoBackwardsStage.BEGUN});
-          }  else if ((this.state.firstBackwardsStatus === GoBackwardsStage.BEGUN) && (this.state.textIndexNumber < 7)) {
-            this.setState({firstBackwardsStatus: GoBackwardsStage.FINISHED});
-          } else if (this.state.firstBackwardsStatus === GoBackwardsStage.BEGUN) {
+            this.setState({firstBackwardsStatus: EventStage.BEGUN});
+          }  else if ((this.state.firstBackwardsStatus === EventStage.BEGUN) && (this.state.textIndexNumber < 7)) {
+            this.setState({firstBackwardsStatus: EventStage.FINISHED});
+          } else if (this.state.firstBackwardsStatus === EventStage.BEGUN) {
             this.subtractWord(e);
           } else {
               this.addWord(e);
@@ -84,10 +128,18 @@ export class Home extends React.Component {
 
       }
 
-  
       addWord = (e) => {
 
-        if (!this.state.modalActivated) {
+        if(e.type === 'touchstart') {
+            if (this.state.fullTextArray.length > this.state.textIndexNumber) {
+                this.setState({textIndexNumber: this.state.textIndexNumber + 1});
+                this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+               if (this.state.decreaseStatus !== EventStage.BEGUN) {
+                window.scrollBy(0, 5);
+               }
+                
+              }
+        }
 
             window.onkeydown = function(e) { 
             
@@ -140,17 +192,28 @@ export class Home extends React.Component {
                 if (this.state.fullTextArray.length > this.state.textIndexNumber) {
                     this.setState({textIndexNumber: this.state.textIndexNumber + 1});
                     this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
-                   window.scrollBy(0, 5);
-                
+                   if (this.state.decreaseStatus !== EventStage.BEGUN) {
+                    window.scrollBy(0, 5);
+                   }
+                    
                   }
             }
 
-        }
+        
             
       }
 
       subtractWord = (e) => {
-        if (!this.state.modalActivated) {
+        
+        
+        if(e.type === 'touchstart') {
+            if (this.state.fullTextArray.length > this.state.textIndexNumber) {
+                this.setState({textIndexNumber: this.state.textIndexNumber - 1});
+                this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+               
+                
+              }
+        }
 
             window.onkeydown = function(e) { 
             
@@ -210,7 +273,7 @@ export class Home extends React.Component {
             }
 
 
-        }
+        
       }
 
 
@@ -222,11 +285,16 @@ export class Home extends React.Component {
 
                 <header className="App-header"  >
 
-                    <h1 className='title' > {title} </h1>
+                    <h1 className='title' > {this.state.title} </h1>
                     
-                    <Container className='container' >                   
+                    <Container className='container' style={{"transform": 'rotate(' + this.state.rotate + 'deg)'  }}  >                   
 
                         {this.state.textPresented}
+              
+</Container>
+<Container className='container' style={{"font-size": this.state.fontSize + 'px'  }}  >                   
+
+                        {this.state.secondTextPresented}
               
 </Container>
 

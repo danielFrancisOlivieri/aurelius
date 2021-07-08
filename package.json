@@ -29,6 +29,7 @@
     "babel-eslint": "^10.0.1",
     "change-case": "^3.1.0",
     "codeclimate-test-reporter": "^0.5.1",
+    "d3": "^7.0.0",
     "disqus-react": "^1.0.5",
     "gatsby": "^2.18.4",
     "gatsby-link": "^2.1.1",
