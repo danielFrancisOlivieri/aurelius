@@ -25,6 +25,11 @@ let title = 'Tunnels';
 let textIndexNumber = 2; // holds your place, manipulating it changes how much is presented
 let fullText = newText;
 let fullTextArray = fullText.split(' ');
+const GoBackwardsStage = {
+    HASNOTBEGUN: 1,
+    BEGUN: 2,
+    FINISHED: 3
+}
 
 function returnTextToPresent(fullTextArray, textIndexNumber) {
     let toReturn = '';
@@ -46,32 +51,40 @@ export class Home extends React.Component {
             textIndexNumber: 2,
             fullTextArray: fullText.split(' '),
             textPresented: returnTextToPresent(fullTextArray, textIndexNumber),
-            modalActivated: false
+            modalActivated: false,
+            firstBackwardsStatus: GoBackwardsStage.HASNOTBEGUN
         }
-       // this.onKeyDown = this.onKeyDown.bind(this); 
-        this.handleTouchStart = this.handleTouchStart.bind(this);
+
         this.toggleModal = this.toggleModal.bind(this);
     }
 
       componentDidMount() {
-        document.addEventListener('keydown', this.addWord);
+        document.addEventListener('keydown', this.handleKeyDown);
       }
 
-      handleTouchStart() {
-          console.log('hello touch');
-        this.setState({textIndexNumber: this.state.textIndexNumber + 1});
-        this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
-        window.scrollBy(0, 5);
-      }
 
       toggleModal() {
         this.setState({modalActivated: true});
         console.log('toggle modal');
       }
 
+      handleKeyDown = (e) => {
+          console.log(this.state.textIndexNumber);
+          console.log(this.state.firstBackwardsStatus);
+          if((this.state.firstBackwardsStatus === GoBackwardsStage.HASNOTBEGUN) && (this.state.textIndexNumber > 25)) {
+            this.subtractWord(e);
+            this.setState({firstBackwardsStatus: GoBackwardsStage.BEGUN});
+          }  else if ((this.state.firstBackwardsStatus === GoBackwardsStage.BEGUN) && (this.state.textIndexNumber < 7)) {
+            this.setState({firstBackwardsStatus: GoBackwardsStage.FINISHED});
+          } else if (this.state.firstBackwardsStatus === GoBackwardsStage.BEGUN) {
+            this.subtractWord(e);
+          } else {
+              this.addWord(e);
+          }
+
+      }
+
   
-
-
       addWord = (e) => {
 
         if (!this.state.modalActivated) {
@@ -93,12 +106,9 @@ export class Home extends React.Component {
                 else {
                     x[0].style.visibility = 'visible';
                 }
-    
                 
             }
     
-           
-            
             if(e.keyCode === 16) {
                 window.scrollBy(0, 150);
             }
@@ -135,10 +145,72 @@ export class Home extends React.Component {
                   }
             }
 
+        }
+            
+      }
+
+      subtractWord = (e) => {
+        if (!this.state.modalActivated) {
+
+            window.onkeydown = function(e) { 
+            
+                if(e.keyCode === 32) {
+                    window.scrollBy(0, 75);    
+                }
+                return !(e.keyCode === 32);
+            };
+    
+            if (e.keyCode === 219) {
+                let x = document.getElementsByClassName("fullStatistic");
+                console.log(x[0].style);
+                if (x[0].style.visibility === 'visible') {
+                    x[0].style.visibility = 'hidden';
+                } 
+                else {
+                    x[0].style.visibility = 'visible';
+                }
+    
+                
+            }
+    
+            if(e.keyCode === 16) {
+                window.scrollBy(0, 150);
+            }
+    
+            if (e.keyCode === 221) {
+                if ( this.state.textPresented === this.state.fullText) {
+                    this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                }
+                else {
+                    this.setState({textPresented: this.state.fullText});
+                }
+                
+            }
+    
+            if(e.keyCode === 37 ) {
+                console.log(e);
+                if ( this.state.textIndexNumber > 0 ) {
+                    this.setState({textIndexNumber: this.state.textIndexNumber - 1});
+                    this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                    window.scrollBy(0, -2);
+                }           
+            } else if (e.keyCode === 8) {
+                let newArray = this.state.fullTextArray.slice(this.state.textIndexNumber, this.state.fullTextArray.length);
+                this.setState({fullTextArray: newArray});
+                this.setState({textPresented: '' });
+                this.setState({textIndexNumber: 2 });
+                window.scrollTo(0,0);
+            } else if ((e.keyCode > 47 && e.keyCode < 91) || e.keyCode === 39 || e.keyCode === 222 || (e.keyCode > 185 && e.keyCode < 192) ){
+                if (this.state.fullTextArray.length > this.state.textIndexNumber) {
+                    this.setState({textIndexNumber: this.state.textIndexNumber - 1});
+                    this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                  
+                
+                  }
+            }
+
 
         }
-
-            
       }
 
 
@@ -148,7 +220,7 @@ export class Home extends React.Component {
                     <Scene>
             <div>
 
-                <header className="App-header" onTouchStart={this.handleTouchStart}  >
+                <header className="App-header"  >
 
                     <h1 className='title' > {title} </h1>
                     
