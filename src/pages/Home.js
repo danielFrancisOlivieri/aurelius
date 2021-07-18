@@ -5,23 +5,17 @@ import { Controller, Scene } from 'react-scrollmagic';
 import 'semantic-ui-css/semantic.min.css';
 import './legible.css';
 
+let explanatoryText = `Start typing to begin. Press space to scroll down.`
 
 let newText = `
-Can you remember your first tunnel? Any tunnel will do. Crawlspaces, unexpected corridors, subways, cellars, bulkheads, catacombs.
-Mine is from the day we tried to clean up Narbrook park. It helped that Narbrook park was pretty clean to begin with. 
-Ever since, whenever I hear "Light at the end of the tunnel," that is the light I see, that is the tunnel I remember. 
-Emily Red behind me urging me to go faster. My legs spread out on either side to avoid the trail of water running through the middle. 
-Tunnel systems fan out under the Earth in harrowing displays. That you might just be at the surface of your life. 
-Depths. The metaphors that bind the world together. A way to talk about what you can't see. What does it mean to have depth? 
-Can you remember a second tunnel? A tunnel of your adolescents? 
-Now I'm asking you for a different type of tunnel. Not a tunnel but what feels like a tunnel. 
-Anything that has you trapped and pushing through. No way out but forward.  
-If you find a woman who's caught in a cave, you use a father's authoritative tone. 
-If you find a man (who tend to get stuck a bit more often, being bulkier and more foolhardy) you use a coaxing, motherly tone.
-
+Can you remember your first tunnel? 
+Mine began with a creek. At the other end of the creek that we played at there was this dark tunnel that seemed like a black hole, like foreboding, placed there out of a horror story because it stood right next to the rest of the world but was so clearly an entrance to another one, the exact place where day turned to night, where it kept its own pocket of night going throughout the day. Emily, Jackson’s older sister, always stole the hair off my Playmobil figures to annoy me. She had the idea of walking through the tunnel. More scary than the tunnel was being the only one too afraid to go into the tunnel. The creek ran through the bottom of it so you had to spread your legs out to either side to avoid it. This was tame as tunnels go. It had no twists, no turns, no trap doors or criminals hiding from the law. Whenever I hear the term “light at the end of the tunnel,” that is the tunnel I remember; that is the light I see. There was no way out on the other side, unless you were prepared to swim. It was just water on the other side with walls on either side that were too tall to scale. There was no way out, but there was another perspective, the chance to see my same world from a different vantage point. Now I could look up on the world that before I’d only looked down from.
+Language itself seems to think that knowledge lurks down below us. "Let's get to the bottom of this." "What's the fundamental problem here?" "You need to dig deeper into the problem."
+"there is no trifle, there is no puzzle, but one design unites and animates the farthest pinnacle and the lowest trench."
+Every depth it itself the surface of another layer that lies deeper still. 
+The Earth has a long memory and what humans forget it often remembers. This--- total cave darkness is something that humans have encountered for the full 200,000 years of our existence. The eerie feeling of opening and closing one's eyes, but registering no difference. This is what total cave darkness means. There is no darker than total darkness. The cave darkness whether you are early man searching for a place to have your ritual or an ascetic monk looking to meet God in the darkness or the scientist who lived in total darkness for months to see what natural rhythm his body would adjust to when deprived of any access to light. 
 `
-
-let textIndexNumber = 2; // holds your place, manipulating it changes how much is presented
+let textIndexNumber = 3; // holds your place, manipulating it changes how much is presented
 let fullText = newText;
 let fullTextArray = fullText.split(' ');
 const EventStage = {
@@ -31,13 +25,7 @@ const EventStage = {
 }
 
 
-function returnTextToPresent(fullTextArray, textIndexNumber) {
-    let toReturn = '';
-    for (let i = 0; i < textIndexNumber; i++) {
-        toReturn += fullTextArray[i] + ' ';
-    }
-    return toReturn;
-}
+
 
 
 export class Home extends React.Component {
@@ -46,17 +34,19 @@ export class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: 'Tunnels',
+            title: 'Depth',
             fullText: newText,
-            textIndexNumber: 2,
+            textIndexNumber: 3,
+            explanationTextStatus: true,
             fullTextArray: fullText.split(' '),
-            textPresented: returnTextToPresent(fullTextArray, textIndexNumber),
-            secondTextPresented: 'Terwilliger',
+            textPresented: explanatoryText,
             modalActivated: false,
             firstBackwardsStatus: EventStage.HASNOTBEGUN,
             fontSize: 62,
-            decreaseStatus: EventStage.HASNOTBEGUN,
-            rotate: 0
+            rotateStatus: EventStage.HASNOTBEGUN,
+            rotate: 0,
+            
+
         }
 
     }
@@ -67,15 +57,22 @@ export class Home extends React.Component {
         
       }
 
+      returnTextToPresent = (fullTextArray, textIndexNumber) => {       
+        let toReturn = '';
+        for (let i = 0; i < textIndexNumber; i++) {
+            toReturn += fullTextArray[i] + ' ';
+        }
+        return toReturn;
+    }
 
     decreaseSize = () => {
 
-        if(this.state.decreaseStatus === EventStage.HASNOTBEGUN && this.state.textIndexNumber > 80) {
-            this.setState({decreaseStatus: EventStage.BEGUN});
-        } else if (this.state.decreaseStatus === EventStage.BEGUN && this.state.textIndexNumber < 120) {
+        if(this.state.rotateStatus === EventStage.HASNOTBEGUN && this.state.textIndexNumber > 80) {
+            this.setState({rotateStatus: EventStage.BEGUN});
+        } else if (this.state.rotateStatus === EventStage.BEGUN && this.state.textIndexNumber < 120) {
             this.setState({fontSize: this.state.fontSize - 1 })
-        } else if (this.state.decreaseStatus === EventStage.BEGUN && this.state.textIndexNumber > 120) {
-            this.setState({decreaseStatus: EventStage.FINISHED});
+        } else if (this.state.rotateStatus === EventStage.BEGUN && this.state.textIndexNumber > 120) {
+            this.setState({rotateStatus: EventStage.FINISHED});
             this.setState({fontSize: 62 })
         }
 
@@ -83,21 +80,22 @@ export class Home extends React.Component {
 
     rotateText = () => {
 
-        if(this.state.decreaseStatus === EventStage.HASNOTBEGUN && this.state.textIndexNumber > 80) {
-            this.setState({decreaseStatus: EventStage.BEGUN});
-        } else if (this.state.decreaseStatus === EventStage.BEGUN && this.state.textIndexNumber < 150) {
-            this.setState({rotate: this.state.rotate + 4 })
-        } else if (this.state.decreaseStatus === EventStage.BEGUN && this.state.textIndexNumber > 150) {
-            this.setState({decreaseStatus: EventStage.FINISHED});
-            this.setState({rotate: 0 })
+        if(this.state.rotateStatus === EventStage.HASNOTBEGUN && this.state.textIndexNumber > 120) {
+            this.setState({rotateStatus: EventStage.BEGUN});
+        } else if (this.state.rotateStatus === EventStage.BEGUN && this.state.textIndexNumber < 150) {
+            this.setState({rotate: this.state.rotate + 1 })
+        } else if (this.state.rotateStatus === EventStage.BEGUN && this.state.textIndexNumber > 150) {
+            this.setState({rotateStatus: EventStage.FINISHED});
+        } else if (this.state.rotateStatus === EventStage.FINISHED && this.state.textIndexNumber > 150) {
+            if (this.state.rotate > 0 ) {
+                this.setState({rotate: this.state.rotate - 1 })
+            }
         }
+
 
     } 
 
     handleTouchDown = (e) => {
-        console.log(e.type);
-
-      this.rotateText();
 
         if((this.state.firstBackwardsStatus === EventStage.HASNOTBEGUN) && (this.state.textIndexNumber > 25)) {
           this.subtractWord(e);
@@ -112,8 +110,6 @@ export class Home extends React.Component {
     }
 
       handleKeyDown = (e) => {
-        console.log(e);
-        this.rotateText();
 
           if((this.state.firstBackwardsStatus === EventStage.HASNOTBEGUN) && (this.state.textIndexNumber > 25)) {
             this.subtractWord(e);
@@ -133,8 +129,8 @@ export class Home extends React.Component {
         if(e.type === 'touchstart') {
             if (this.state.fullTextArray.length > this.state.textIndexNumber) {
                 this.setState({textIndexNumber: this.state.textIndexNumber + 1});
-                this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
-               if (this.state.decreaseStatus !== EventStage.BEGUN) {
+                this.setState({textPresented: this.returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+               if (this.state.rotateStatus !== EventStage.BEGUN) {
                 window.scrollBy(0, 5);
                }
                 
@@ -144,7 +140,7 @@ export class Home extends React.Component {
             window.onkeydown = function(e) { 
             
                 if(e.keyCode === 32) {
-                    window.scrollBy(0, 75);    
+                    window.scrollBy(0, 250);    
                 }
                 return !(e.keyCode === 32);
             };
@@ -167,7 +163,7 @@ export class Home extends React.Component {
     
             if (e.keyCode === 221) {
                 if ( this.state.textPresented === this.state.fullText) {
-                    this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                    this.setState({textPresented: this.returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
                 }
                 else {
                     this.setState({textPresented: this.state.fullText});
@@ -179,7 +175,7 @@ export class Home extends React.Component {
                 console.log(e);
                 if ( this.state.textIndexNumber > 0 ) {
                     this.setState({textIndexNumber: this.state.textIndexNumber - 1});
-                    this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                    this.setState({textPresented: this.returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
                     window.scrollBy(0, -2);
                 }           
             } else if (e.keyCode === 8) {
@@ -191,9 +187,9 @@ export class Home extends React.Component {
             } else if ((e.keyCode > 47 && e.keyCode < 91) || e.keyCode === 39 || e.keyCode === 222 || (e.keyCode > 185 && e.keyCode < 192) ){
                 if (this.state.fullTextArray.length > this.state.textIndexNumber) {
                     this.setState({textIndexNumber: this.state.textIndexNumber + 1});
-                    this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
-                   if (this.state.decreaseStatus !== EventStage.BEGUN) {
-                    window.scrollBy(0, 5);
+                    this.setState({textPresented: this.returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                   if (this.state.rotateStatus !== EventStage.BEGUN) {
+                    window.scrollBy(0, 10);
                    }
                     
                   }
@@ -209,7 +205,7 @@ export class Home extends React.Component {
         if(e.type === 'touchstart') {
             if (this.state.fullTextArray.length > this.state.textIndexNumber) {
                 this.setState({textIndexNumber: this.state.textIndexNumber - 1});
-                this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                this.setState({textPresented: this.returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
                
                 
               }
@@ -242,7 +238,7 @@ export class Home extends React.Component {
     
             if (e.keyCode === 221) {
                 if ( this.state.textPresented === this.state.fullText) {
-                    this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                    this.setState({textPresented: this.returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
                 }
                 else {
                     this.setState({textPresented: this.state.fullText});
@@ -254,7 +250,7 @@ export class Home extends React.Component {
                 console.log(e);
                 if ( this.state.textIndexNumber > 0 ) {
                     this.setState({textIndexNumber: this.state.textIndexNumber - 1});
-                    this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                    this.setState({textPresented: this.returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
                     window.scrollBy(0, -2);
                 }           
             } else if (e.keyCode === 8) {
@@ -266,7 +262,7 @@ export class Home extends React.Component {
             } else if ((e.keyCode > 47 && e.keyCode < 91) || e.keyCode === 39 || e.keyCode === 222 || (e.keyCode > 185 && e.keyCode < 192) ){
                 if (this.state.fullTextArray.length > this.state.textIndexNumber) {
                     this.setState({textIndexNumber: this.state.textIndexNumber - 1});
-                    this.setState({textPresented: returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
+                    this.setState({textPresented: this.returnTextToPresent(this.state.fullTextArray, this.state.textIndexNumber) });
                   
                 
                   }
@@ -288,14 +284,8 @@ export class Home extends React.Component {
                     <h1 className='title' > {this.state.title} </h1>
                     
                     <Container className='container' style={{"transform": 'rotate(' + this.state.rotate + 'deg)'  }}  >                   
-
-                        {this.state.textPresented}
-              
-</Container>
-<Container className='container' style={{"font-size": this.state.fontSize + 'px'  }}  >                   
-
-                        {this.state.secondTextPresented}
-              
+                      
+                      {this.state.textPresented}
 </Container>
 
 <Statistic className='fullStatistic' >

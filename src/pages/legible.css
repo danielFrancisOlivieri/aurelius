@@ -53,6 +53,11 @@
  font-size: 3em;
 }
 
+.forImages {
+  
+  bottom: 0;
+}
+
 .home {
   margin-bottom: 300px;
 }
