@@ -45,14 +45,6 @@ const Layout = (props: LayoutProps) => {
           <div style={{ paddingBottom: 60 }}>
             {props.children}
           </div>
-
-          {/* Footer */}
-          <Segment inverted vertical style={{ position: "absolute", bottom: 0, width: "100%" }}>
-            <Container textAlign="center">
-              <p> Wowza, you've done a lot of reading. </p>
-              <p>Powered with <Icon name="heart" /> by Gatsby 2.0</p>
-            </Container>
-          </Segment>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     </Provider>
