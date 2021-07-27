@@ -26,7 +26,7 @@ export class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: 'Depth',
+            title: 'Chthonic',
             fullText: newText,
             textIndexNumber: 3,
             explanationTextStatus: true,
