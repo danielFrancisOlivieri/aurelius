@@ -2,7 +2,7 @@ import { Link } from "gatsby";
 import * as React from "react";
 import HeaderMenu from "./HeaderMenu/HeaderMenu";
 import SidebarMenu from "./SidebarMenu/SidebarMenu";
-import { Segment, Icon, Container, Sidebar } from "semantic-ui-react";
+import { Segment, Sidebar } from "semantic-ui-react";
 import "../css/styles.css";
 import "../css/responsive.css";
 import "../css/semantic.min.css";
