@@ -59,7 +59,6 @@ export class Home extends React.Component {
     for (let i = 0; i < textIndexNumber; i++) {
       toReturn += fullTextArray[i] + ' ';
     }
-
     return toReturn;
   }
 
@@ -98,7 +97,7 @@ export class Home extends React.Component {
     } else if (this.state.textIndexNumber === 320) {
       this.setState({backgroundColor: '#282c34'});
     }
-    else if (this.state.textIndexNumber > 1315) {
+    else if (this.state.textIndexNumber > 1220) {
       const newBackgroundShade = tinycolor(this.state.backgroundColor).lighten(1).toHexString();
       this.setState({backgroundColor: newBackgroundShade});
       const newFontShade = tinycolor(this.state.fontColor).darken(1).toHexString();
