@@ -39,6 +39,14 @@ export class Home extends React.Component {
       backgroundColor: '#fff',
       fontColor: 'black'
     };
+
+    this.returnTextToPresent = this.returnTextToPresent.bind(this);
+    this.changeBackgroundBrightness = this.changeBackgroundBrightness.bind(this);
+    this.handleTouchDown = this.handleTouchDown.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.addWord = this.addWord.bind(this);
+    this.subtractWord = this.subtractWord.bind(this);   
+
   }
 
   componentDidMount() {
@@ -109,13 +117,14 @@ export class Home extends React.Component {
   }
 
   handleKeyDown(e) {
-    this.changeBackgroundBrightness();
-    if ((this.state.firstBackwardsStatus === EventStage.HASNOTBEGUN) && (this.state.textIndexNumber > 6340)) {
+   this.changeBackgroundBrightness();
+
+    if ((this.firstBackwardsStatus === EventStage.HASNOTBEGUN) && (this.textIndexNumber > 6340)) {
       this.subtractWord(e);
       this.setState({firstBackwardsStatus: EventStage.BEGUN});
-    } else if ((this.state.firstBackwardsStatus === EventStage.BEGUN) && (this.state.textIndexNumber < 5970)) {
+    } else if ((this.firstBackwardsStatus === EventStage.BEGUN) && (this.textIndexNumber < 5970)) {
       this.setState({firstBackwardsStatus: EventStage.FINISHED});
-    } else if (this.state.firstBackwardsStatus === EventStage.BEGUN) {
+    } else if (this.firstBackwardsStatus === EventStage.BEGUN) {
       this.subtractWord(e);
     } else {
       this.addWord(e);
@@ -135,7 +144,7 @@ export class Home extends React.Component {
 
     window.addEventListener('keydown', e => {
       if (e.keyCode === 32) {
-        window.scrollBy(0, 250);
+        window.scrollBy(0, 15);
       }
 
       return !(e.keyCode === 32);
