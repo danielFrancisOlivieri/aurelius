@@ -5,7 +5,7 @@ import tinycolor from 'tinycolor2';
 import 'semantic-ui-css/semantic.min.css';
 import './legible.css';
 
-const explanatoryText = 'Start typing to begin. Press space to scroll down.';
+const explanatoryText = 'Start typing to begin. Press enter or shift to scroll down.';
 
 const newText = `
 Can you remember your first underground tunnel? The bulkhead steps that were covered in spiderwebs? Your great uncle’s wine cellar? The New York subway system? Mine was a concrete pipe that the local creek ran through. At the other end of the creek, my friend Jackson and I spent afternoons leading toy army men in amphibious assaults along its banks. Bazookas fired, machine guns rattled, an infantry corporal called in for air support. But at the other end from where we played, the creek fed into an imposing tunnel which seemed to have its own private night going throughout all hours of the day. Emily, Jackson’s older sister, always stole the hair off my Playmobil figures to annoy me. She had the idea of walking through the tunnel. More scary than the tunnel was being the only one too afraid to go into the tunnel. The creek ran through the bottom of it so you had to spread your legs out to either side to avoid it. It was tame as tunnels go. It had no twists, no turns, no trap doors or criminals hiding from the law. I remember the experience as a palindrome: the brightness of the day faded into the dimness of the tunnel’s entrance and the tunnel’s entranced faded into the darkness of the tunnel’s middle and then the darkness of the tunnel’s middle gave way to the dimness of the tunnel’s exit, and then I was back in the brightness of the day again, appreciating it more now that I had left it and returned. Even now, whenever I hear the term “light at the end of the tunnel,” that is the tunnel I remember; that is the light I see.
@@ -95,7 +95,10 @@ export class Home extends React.Component {
       this.setState({backgroundColor: newBackgroundShade});
       const newFontShade = tinycolor(this.state.fontColor).lighten(1).toHexString();
       this.setState({fontColor: newFontShade});
-    } else if (this.state.textIndexNumber > 1315) {
+    } else if (this.state.textIndexNumber === 320) {
+      this.setState({backgroundColor: '#282c34'});
+    }
+    else if (this.state.textIndexNumber > 1315) {
       const newBackgroundShade = tinycolor(this.state.backgroundColor).lighten(1).toHexString();
       this.setState({backgroundColor: newBackgroundShade});
       const newFontShade = tinycolor(this.state.fontColor).darken(1).toHexString();
@@ -137,18 +140,11 @@ export class Home extends React.Component {
         this.setState(previousState => ({textIndexNumber: previousState + 1}));
         this.setState(previousState => ({textPresented: this.returnTextToPresent(previousState.fullTextArray, previousState.textIndexNumber)}));
         if (this.state.rotateStatus !== EventStage.BEGUN) {
-          window.scrollBy(0, 5);
+          window.scrollBy(0, 7);
         }
       }
     }
 
-    window.addEventListener('keydown', e => {
-      if (e.keyCode === 32) {
-        window.scrollBy(0, 15);
-      }
-
-      return !(e.keyCode === 32);
-    });
 
     if (e.keyCode === 219) {
       const x = document.querySelectorAll('.fullStatistic');
@@ -160,7 +156,7 @@ export class Home extends React.Component {
       }
     }
 
-    if (e.keyCode === 16) {
+    if (e.keyCode === 16 || e.keyCode === 13) {
       window.scrollBy(0, 150);
     }
 
@@ -192,6 +188,9 @@ export class Home extends React.Component {
         if (this.state.rotateStatus !== EventStage.BEGUN) {
           window.scrollBy(0, 10);
         }
+      }
+      else if (e.keyCode === 32) {
+        window.scrollBy(0, 150);
       }
     }
   }
