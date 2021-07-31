@@ -1,19 +1,15 @@
 .App {
   text-align: left;
-  background-color: #282c34;
 }
 
 .stat {
-  color: white;
   font-family: Georgia, 'Times New Roman', Times, serif;
   line-height: normal;
-  
 }
 
 .fullStatistic {
   visibility: hidden;
 }
-
 
 .App-logo {
   height: 40vmin;
@@ -27,22 +23,14 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-size: calc(10px + 2vmin);
-  color: white;
-  overflow: auto;
-  height: 5000vh;  
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-.displayText {
   color: black;
+  overflow: auto;
+  height: 5000vh;
 }
 
 .container {
@@ -50,11 +38,10 @@
   margin-bottom: 120px;
   font-family: Georgia, 'Times New Roman', Times, serif;
   line-height: normal;
- font-size: 3em;
+  font-size: 3em;
 }
 
 .forImages {
-  
   bottom: 0;
 }
 
@@ -62,31 +49,14 @@
   margin-bottom: 300px;
 }
 
-h1 {
-  cursor: pointer;
-}
-
 pre {
-    width: 90%;
-    background-color: #282c34;
+  width: 90%;
+  background-color: #282c34;
 }
 
 .title {
-  color: white;
+  /* color: white; */
   align-self: center;
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 4em;
-}
-
-.inputModal {
-  background-color: red;
-} 
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

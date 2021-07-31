@@ -1,13 +1,8 @@
 import * as React from "react";
 import { withLayout, LayoutProps, menuItems } from "../components/Layout";
-import { Home } from './Home'
-
+import { Home } from "./Home";
 
 const IndexPage = (props: LayoutProps) =>
-  <div>
-    {/* Master head */}
-
-    <Home></Home>
-  </div>;
+    <Home></Home>;
 
 export default withLayout(IndexPage);
